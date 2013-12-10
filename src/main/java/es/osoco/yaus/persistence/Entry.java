@@ -1,16 +1,14 @@
 package es.osoco.yaus.persistence;
 
+import com.mongodb.DBObject;
+
 public class Entry {
-    private String id;
     private String url;
     private String hash;
 
-    public Entry() {
-        // TODO: Initialize fields
-    }
-
-    public String getId() {
-        return id;
+    public Entry(DBObject entry) {
+        url = (String) entry.get("url");
+        hash = (String) entry.get("hash");
     }
 
     public String getUrl() {
