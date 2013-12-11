@@ -47,6 +47,10 @@ public class EntryDao {
         return new Entry(entry);
     }
 
+    public void removeAll() {
+        getEntries().remove(new BasicDBObject());
+    }
+
     private DBCollection getEntries() {
         return mongoClient.getDB(DB_NAME).getCollection(COLLECTION_NAME);
     }
