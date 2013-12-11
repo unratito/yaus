@@ -11,7 +11,7 @@ public class YausService {
     @Inject
     private EntryDao entryDao;
 
-    public String getURL(String hash) {
+    public String getUrl(String hash) {
         Entry entry = entryDao.findByHash(hash);
 
         if (entry != null) {
@@ -21,7 +21,7 @@ public class YausService {
         return null;
     }
 
-    public String addURL(String url) {
+    public String addUrl(String url) {
         Entry entry = entryDao.findByUrl(url);
 
         if (entry != null) {
