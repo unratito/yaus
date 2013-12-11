@@ -3,6 +3,8 @@ package es.osoco.yaus.persistence;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
+import org.bson.types.ObjectId;
+
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
@@ -27,7 +29,8 @@ public class EntryDao {
     }
 
     public Entry findByHash(String hash) {
-        DBObject entry = getEntries().findOne(new BasicDBObject("_id", hash));
+        DBObject entry = getEntries().findOne(
+                new BasicDBObject("_id", new ObjectId(hash)));
 
         if (entry != null) {
             return new Entry(entry);
