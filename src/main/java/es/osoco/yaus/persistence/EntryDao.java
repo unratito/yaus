@@ -3,6 +3,7 @@ package es.osoco.yaus.persistence;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
+import org.apache.deltaspike.core.api.config.ConfigProperty;
 import org.bson.types.ObjectId;
 
 import com.mongodb.BasicDBObject;
@@ -12,8 +13,12 @@ import com.mongodb.MongoClient;
 
 @Stateless
 public class EntryDao {
-    private static final String DB_NAME = "yaus";
-    private static final String COLLECTION_NAME = "urls";
+    @Inject
+    @ConfigProperty(name = "mongo.db")
+    private String dbName;
+    @Inject
+    @ConfigProperty(name = "mongo.collection")
+    private String collectionName;
 
     @Inject
     private MongoClient mongoClient;
@@ -59,6 +64,6 @@ public class EntryDao {
     }
 
     private DBCollection getEntries() {
-        return mongoClient.getDB(DB_NAME).getCollection(COLLECTION_NAME);
+        return mongoClient.getDB(dbName).getCollection(collectionName);
     }
 }
