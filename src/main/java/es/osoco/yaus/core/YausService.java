@@ -24,14 +24,10 @@ public class YausService {
     public String addUrl(String url) {
         Entry entry = entryDao.findByUrl(url);
 
-        if (entry != null) {
-            return entry.getHash();
+        if (entry == null) {
+            entry = entryDao.insert(url);
         }
 
-        String hash = "XXX"; // TODO: generate hash
-
-        entryDao.insert(url, hash);
-
-        return hash;
+        return entry.getHash();
     }
 }

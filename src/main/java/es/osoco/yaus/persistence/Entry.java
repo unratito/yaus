@@ -1,5 +1,7 @@
 package es.osoco.yaus.persistence;
 
+import org.bson.types.ObjectId;
+
 import com.mongodb.DBObject;
 
 public class Entry {
@@ -8,7 +10,7 @@ public class Entry {
 
     public Entry(DBObject entry) {
         url = (String) entry.get("url");
-        hash = (String) entry.get("hash");
+        hash = ((ObjectId) entry.get("_id")).toString();
     }
 
     public String getUrl() {

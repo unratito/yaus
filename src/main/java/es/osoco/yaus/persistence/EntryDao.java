@@ -27,7 +27,7 @@ public class EntryDao {
     }
 
     public Entry findByHash(String hash) {
-        DBObject entry = getEntries().findOne(new BasicDBObject("hash", hash));
+        DBObject entry = getEntries().findOne(new BasicDBObject("_id", hash));
 
         if (entry != null) {
             return new Entry(entry);
@@ -36,8 +36,12 @@ public class EntryDao {
         return null;
     }
 
-    public void insert(String url, String hash) {
-        getEntries().insert(new BasicDBObject("url", url).append("hash", hash));
+    public Entry insert(String url) {
+        DBObject entry = new BasicDBObject("url", url);
+
+        getEntries().insert(entry);
+
+        return new Entry(entry);
     }
 
     private DBCollection getEntries() {
