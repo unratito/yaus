@@ -29,8 +29,15 @@ public class EntryDao {
     }
 
     public Entry findByHash(String hash) {
+        ObjectId objectId;
+        try {
+            objectId = new ObjectId(hash);
+        } catch (IllegalArgumentException e) {
+            return null;
+        }
+
         DBObject entry = getEntries().findOne(
-                new BasicDBObject("_id", new ObjectId(hash)));
+                new BasicDBObject("_id", objectId));
 
         if (entry != null) {
             return new Entry(entry);
