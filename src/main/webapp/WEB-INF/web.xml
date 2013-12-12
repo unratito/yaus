@@ -14,6 +14,10 @@
 		<servlet-name>Faces Servlet</servlet-name>
 		<url-pattern>/shortener.jsf</url-pattern>
 	</servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>/javax.faces.resource/jsf.js.jsf</url-pattern>
+    </servlet-mapping>
 
 </web-app>
 

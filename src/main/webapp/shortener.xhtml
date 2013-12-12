@@ -6,16 +6,23 @@
 
 <h:head>
 	<title>Yet Another URL Shortener</title>
+	<script type="text/javascript">
+        function onGenerate(data) {
+            if (data.status == "success") {
+                document.getElementById('form:shortUrl').select();
+            }
+        }
+    </script>
 </h:head>
 
 <body>
-	<h:form>
+	<h:form id="form">
 		<div>Insert your URL here:</div>
 
 		<div>
-			<h:inputText value="#{urlShortener.url}" size="60" />
+			<h:inputText id="url" value="#{urlShortener.url}" size="60" />
 			<h:commandButton action="#{urlShortener.shorten}" value="Generate!">
-				<f:ajax render="shortUrl" />
+				<f:ajax execute="url" render="shortUrl" onevent="onGenerate" />
 			</h:commandButton>
 		</div>
 
