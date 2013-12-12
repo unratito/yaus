@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<title>Yet Another URL Shortener</title>
+</h:head>
+
+<body>
+	<h:form>
+		<div>Insert your URL here:</div>
+
+		<div>
+			<h:inputText value="#{urlShortener.url}" size="60" />
+			<h:commandButton action="#{urlShortener.shorten}" value="Generate!">
+				<f:ajax render="shortUrl" />
+			</h:commandButton>
+		</div>
+
+		<div>Find your short URL below:</div>
+
+		<div>
+			<h:inputText id="shortUrl" value="#{urlShortener.shortUrl}"
+				readonly="true" size="60" />
+		</div>
+	</h:form>
+</body>
+
+</html>
