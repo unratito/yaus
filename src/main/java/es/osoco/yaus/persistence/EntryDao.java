@@ -7,6 +7,7 @@ import org.apache.deltaspike.core.api.config.ConfigProperty;
 import org.bson.types.ObjectId;
 
 import com.mongodb.BasicDBObject;
+import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
@@ -19,6 +20,12 @@ public class EntryDao {
     @Inject
     @ConfigProperty(name = "mongo.collection")
     private String collectionName;
+    @Inject
+    @ConfigProperty(name = "OPENSHIFT_MONGODB_DB_USERNAME")
+    private String dbUserName;
+    @Inject
+    @ConfigProperty(name = "OPENSHIFT_MONGODB_DB_PASSWORD")
+    private String dbPassword;
 
     @Inject
     private MongoClient mongoClient;
@@ -64,6 +71,14 @@ public class EntryDao {
     }
 
     private DBCollection getEntries() {
-        return mongoClient.getDB(dbName).getCollection(collectionName);
+        DB db = mongoClient.getDB(dbName);
+
+        if (dbUserName != null) {
+            if (!db.authenticate(dbUserName, dbPassword.toCharArray())) {
+                throw new RuntimeException("Invalid MongoDB credentials");
+            }
+        }
+
+        return db.getCollection(collectionName);
     }
 }
